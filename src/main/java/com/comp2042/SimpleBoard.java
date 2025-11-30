@@ -23,6 +23,25 @@ public class SimpleBoard implements Board {
         score = new Score();
     }
 
+    /**
+     * Creates a new falling brick at the starting position.
+     * @return true if the brick immediately collides (meaning game over)
+     */
+    private boolean spawnBrick() {
+        Brick newBrick = brickGenerator.getBrick();
+        brickRotator.setBrick(newBrick);
+
+        // Use your new constant names
+        currentOffset = new Point(Constants.START_X, Constants.START_Y);
+
+        return MatrixOperations.intersect(
+                currentGameMatrix,
+                brickRotator.getCurrentShape(),
+                (int) currentOffset.getX(),
+                (int) currentOffset.getY()
+        );
+    }
+
     private boolean tryMove(int dx, int dy) {
         int[][] currentMatrix = MatrixOperations.copy(currentGameMatrix);
         Point p = new Point(currentOffset);
@@ -65,11 +84,9 @@ public class SimpleBoard implements Board {
 
     @Override
     public boolean createNewBrick() {
-        Brick currentBrick = brickGenerator.getBrick();
-        brickRotator.setBrick(currentBrick);
-        currentOffset = new Point(Constants.START_X, Constants.START_Y);
-        return MatrixOperations.intersect(currentGameMatrix, brickRotator.getCurrentShape(), (int) currentOffset.getX(), (int) currentOffset.getY());
+        return spawnBrick();
     }
+
 
     @Override
     public int[][] getBoardMatrix() {
