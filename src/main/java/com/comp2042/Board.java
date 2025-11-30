@@ -16,7 +16,7 @@ public interface Board {
 
     ViewData getViewData();
 
-    void mergeBrickToBackground();
+    void lockBrickToBoard();
 
     ClearRow clearRows();
 
