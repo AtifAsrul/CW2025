@@ -27,6 +27,8 @@
         </VBox>
     </Group>
     <Button text="Pause" onAction="#pauseGame" layoutX="200" layoutY="450" focusTraversable="false"/>
+    <Button text="Restart" onAction="#newGame" layoutX="130" layoutY="450" focusTraversable="false"/>
+    <Button text="Menu" onAction="#backToMenu" layoutX="60" layoutY="450" focusTraversable="false"/>
     <stylesheets>
         <URL value="@window_style.css"/>
     </stylesheets>

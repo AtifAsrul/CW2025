@@ -10,6 +10,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.scene.effect.Reflection;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -227,5 +232,22 @@ public class GuiController implements Initializable {
             }
         }
         gamePanel.requestFocus();
+    }
+
+    public void backToMenu(ActionEvent actionEvent) {
+        timeLine.stop();
+        try {
+            URL location = getClass().getClassLoader().getResource("MainMenu.fxml");
+            ResourceBundle resources = null;
+            FXMLLoader fxmlLoader = new FXMLLoader(location, resources);
+            Parent root = fxmlLoader.load();
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 300, 510);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
