@@ -21,14 +21,27 @@ public class RandomBrickGenerator implements BrickGenerator {
         brickList.add(new SBrick());
         brickList.add(new TBrick());
         brickList.add(new ZBrick());
-        nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
-        nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
+
+        refillBag();
+        refillBag(); // Fill buffer
+    }
+
+    private void refillBag() {
+        List<Brick> bag = new ArrayList<>(brickList);
+        // Shuffle the bag
+        for (int i = 0; i < bag.size(); i++) {
+            int index = ThreadLocalRandom.current().nextInt(bag.size());
+            Brick temp = bag.get(i);
+            bag.set(i, bag.get(index));
+            bag.set(index, temp);
+        }
+        nextBricks.addAll(bag);
     }
 
     @Override
     public Brick getBrick() {
-        if (nextBricks.size() <= 1) {
-            nextBricks.add(brickList.get(ThreadLocalRandom.current().nextInt(brickList.size())));
+        if (nextBricks.size() <= 7) {
+            refillBag();
         }
         return nextBricks.poll();
     }

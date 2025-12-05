@@ -18,7 +18,8 @@ public class SimpleBoard implements Board {
 
     /**
      * Creates a new game board with the given width and height.
-     * Initializes the background matrix, brick generator, rotator, and score system.
+     * Initializes the background matrix, brick generator, rotator, and score
+     * system.
      */
     public SimpleBoard() {
         boardMatrix = new int[height][width];
@@ -29,6 +30,7 @@ public class SimpleBoard implements Board {
 
     /**
      * Creates a new falling brick at the starting position.
+     * 
      * @return true if the brick immediately collides (meaning game over)
      */
     private boolean spawnBrick() {
@@ -36,15 +38,17 @@ public class SimpleBoard implements Board {
         brickRotator.setBrick(newBrick);
 
         // Use your new constant names
-        brickOffset = new Point(Constants.START_X, Constants.START_Y);
+        int brickWidth = newBrick.getShapeMatrix().get(0).length;
+        int centeredX = (width - brickWidth) / 2;
+        brickOffset = new Point(centeredX, Constants.START_Y);
 
         return MatrixOperations.intersect(
                 boardMatrix,
                 brickRotator.getCurrentShape(),
                 (int) brickOffset.getX(),
-                (int) brickOffset.getY()
-        );
+                (int) brickOffset.getY());
     }
+
     /**
      * Attempts to move the active brick by a given horizontal/vertical offset.
      * Performs collision detection before committing the move.
@@ -62,20 +66,23 @@ public class SimpleBoard implements Board {
                 currentMatrix,
                 brickRotator.getCurrentShape(),
                 p.x,
-                p.y
-        );
-        if (conflict) return false;
+                p.y);
+        if (conflict)
+            return false;
 
         brickOffset = p;
         return true;
     }
+
     /**
      * Attempts to move the falling brick one cell downward.
      *
      * @return true if movement succeeds; false if blocked by collision
      */
     @Override
-    public boolean moveBrickDown() { return tryMove(0, 1); }
+    public boolean moveBrickDown() {
+        return tryMove(0, 1);
+    }
 
     /**
      * Attempts to move the falling brick one cell to the left.
@@ -83,7 +90,9 @@ public class SimpleBoard implements Board {
      * @return true if movement succeeds; false if collision prevents movement
      */
     @Override
-    public boolean moveBrickLeft() { return tryMove(-1, 0); }
+    public boolean moveBrickLeft() {
+        return tryMove(-1, 0);
+    }
 
     /**
      * Attempts to move the falling brick one cell to the left.
@@ -91,7 +100,9 @@ public class SimpleBoard implements Board {
      * @return true if movement succeeds; false if collision prevents movement
      */
     @Override
-    public boolean moveBrickRight() { return tryMove(1, 0); }
+    public boolean moveBrickRight() {
+        return tryMove(1, 0);
+    }
 
     /**
      * Attempts to move the falling brick one cell to the right.
@@ -102,7 +113,8 @@ public class SimpleBoard implements Board {
     public boolean rotateLeftBrick() {
         int[][] currentMatrix = MatrixOperations.copy(boardMatrix);
         NextShapeInfo nextShape = brickRotator.getNextShape();
-        boolean conflict = MatrixOperations.intersect(currentMatrix, nextShape.getShape(), (int) brickOffset.getX(), (int) brickOffset.getY());
+        boolean conflict = MatrixOperations.intersect(currentMatrix, nextShape.getShape(), (int) brickOffset.getX(),
+                (int) brickOffset.getY());
         if (conflict) {
             return false;
         } else {
@@ -110,6 +122,7 @@ public class SimpleBoard implements Board {
             return true;
         }
     }
+
     /**
      * Public-facing method used by the game controller to spawn a new brick.
      * Delegates creation to {@link #spawnBrick()}.
@@ -121,7 +134,6 @@ public class SimpleBoard implements Board {
         return spawnBrick();
     }
 
-
     @Override
     public int[][] getBoardMatrix() {
         return boardMatrix;
@@ -129,15 +141,18 @@ public class SimpleBoard implements Board {
 
     @Override
     public ViewData getViewData() {
-        return new ViewData(brickRotator.getCurrentShape(), (int) brickOffset.getX(), (int) brickOffset.getY(), brickGenerator.getNextBrick().getShapeMatrix().get(0));
+        return new ViewData(brickRotator.getCurrentShape(), (int) brickOffset.getX(), (int) brickOffset.getY(),
+                brickGenerator.getNextBrick().getShapeMatrix().get(0));
     }
+
     /**
      * Locks the current falling brick permanently into the board's background
      * matrix. After this operation, the brick becomes part of the static field.
      */
     @Override
     public void lockBrickToBoard() {
-        boardMatrix = MatrixOperations.merge(boardMatrix, brickRotator.getCurrentShape(), (int) brickOffset.getX(), (int) brickOffset.getY());
+        boardMatrix = MatrixOperations.merge(boardMatrix, brickRotator.getCurrentShape(), (int) brickOffset.getX(),
+                (int) brickOffset.getY());
     }
 
     /**
@@ -167,7 +182,7 @@ public class SimpleBoard implements Board {
 
     @Override
     public void newGame() {
-        boardMatrix = new int[width][height];
+        boardMatrix = new int[height][width];
         score.reset();
         createNewBrick();
     }

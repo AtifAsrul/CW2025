@@ -11,6 +11,10 @@ import java.util.ResourceBundle;
 
 public class Main extends Application {
 
+    private static final String APP_TITLE = "TetrisJFX";
+    private static final int WINDOW_WIDTH = 300;
+    private static final int WINDOW_HEIGHT = 510;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -20,13 +24,12 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
         GuiController c = fxmlLoader.getController();
 
-        primaryStage.setTitle("TetrisJFX");
-        Scene scene = new Scene(root, 300, 510);
+        primaryStage.setTitle(APP_TITLE);
+        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
         new GameController(c);
     }
-
 
     public static void main(String[] args) {
         launch(args);
