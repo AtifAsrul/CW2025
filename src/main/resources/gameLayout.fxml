@@ -5,6 +5,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <Pane fx:controller="com.comp2042.GuiController"
       xmlns:fx="http://javafx.com/fxml">
@@ -17,9 +18,15 @@
 
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
+            <Label fx:id="pausedLabel" text="PAUSED" visible="false" textFill="RED">
+                <font>
+                    <Font name="Arial Bold" size="30.0"/>
+                </font>
+            </Label>
             <GameOverPanel fx:id="gameOverPanel"/>
         </VBox>
     </Group>
+    <Button text="Pause" onAction="#pauseGame" layoutX="200" layoutY="450" focusTraversable="false"/>
     <stylesheets>
         <URL value="@window_style.css"/>
     </stylesheets>

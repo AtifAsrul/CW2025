@@ -13,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.effect.Reflection;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -38,6 +39,9 @@ public class GuiController implements Initializable {
 
     @FXML
     private GameOverPanel gameOverPanel;
+
+    @FXML
+    private Label pausedLabel;
 
     private Rectangle[][] displayMatrix;
 
@@ -89,6 +93,9 @@ public class GuiController implements Initializable {
                 }
                 if (keyEvent.getCode() == KeyCode.N) {
                     newGame(null);
+                }
+                if (keyEvent.getCode() == KeyCode.P) {
+                    pauseGame(null);
                 }
             }
         });
@@ -208,6 +215,17 @@ public class GuiController implements Initializable {
     }
 
     public void pauseGame(ActionEvent actionEvent) {
+        if (isGameOver.getValue() == Boolean.FALSE) {
+            if (isPause.getValue() == Boolean.FALSE) {
+                isPause.setValue(Boolean.TRUE);
+                timeLine.stop();
+                pausedLabel.setVisible(true);
+            } else {
+                isPause.setValue(Boolean.FALSE);
+                timeLine.play();
+                pausedLabel.setVisible(false);
+            }
+        }
         gamePanel.requestFocus();
     }
 }
