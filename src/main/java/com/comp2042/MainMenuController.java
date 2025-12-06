@@ -30,7 +30,7 @@ public class MainMenuController {
             GuiController c = fxmlLoader.getController();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 300, 510);
+            Scene scene = new Scene(root, 300, 700);
             stage.setScene(scene);
             stage.show();
 

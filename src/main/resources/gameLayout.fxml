@@ -18,17 +18,21 @@
 
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
-            <Label fx:id="pausedLabel" text="PAUSED" visible="false" textFill="RED">
-                <font>
-                    <Font name="Arial Bold" size="30.0"/>
-                </font>
-            </Label>
+            <Label fx:id="pausedLabel" text="PAUSED" visible="false" styleClass="paused-label"/>
             <GameOverPanel fx:id="gameOverPanel"/>
         </VBox>
     </Group>
-    <Button text="Pause" onAction="#pauseGame" layoutX="200" layoutY="450" focusTraversable="false"/>
-    <Button text="Restart" onAction="#newGame" layoutX="130" layoutY="450" focusTraversable="false"/>
-    <Button text="Menu" onAction="#backToMenu" layoutX="60" layoutY="450" focusTraversable="false"/>
+
+    <HBox layoutX="10" layoutY="550" spacing="10" alignment="CENTER" prefWidth="280">
+        <Label fx:id="scoreLabel" text="Score: 0" styleClass="scoreClass"/>
+    </HBox>
+
+    <HBox layoutX="10" layoutY="640" spacing="10" alignment="CENTER" prefWidth="280">
+        <Button text="Menu" onAction="#backToMenu" styleClass="menu-button" prefWidth="80"/>
+        <Button text="Restart" onAction="#newGame" styleClass="menu-button" prefWidth="80"/>
+        <Button text="Pause" onAction="#pauseGame" styleClass="menu-button" prefWidth="80"/>
+    </HBox>
+
     <stylesheets>
         <URL value="@window_style.css"/>
     </stylesheets>

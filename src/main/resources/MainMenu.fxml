@@ -10,19 +10,15 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.comp2042.MainMenuController"
       alignment="CENTER"
-      spacing="20.0"
-      prefHeight="510.0"
+      spacing="30.0"
+      prefHeight="700.0"
       prefWidth="300.0"
-      styleClass="main-menu">
+      styleClass="main-menu-root">
 
-    <Label text="TETRIS">
-        <font>
-            <Font name="Arial Bold" size="40.0"/>
-        </font>
-    </Label>
+    <Label text="TETRIS" styleClass="game-title"/>
 
-    <Button text="Start Game" onAction="#onStartGame" prefWidth="150.0"/>
-    <Button text="Exit" onAction="#onExit" prefWidth="150.0"/>
+    <Button text="Start Game" onAction="#onStartGame" prefWidth="200.0" prefHeight="50.0" styleClass="menu-button"/>
+    <Button text="Exit" onAction="#onExit" prefWidth="200.0" prefHeight="50.0" styleClass="menu-button"/>
 
     <stylesheets>
         <URL value="@window_style.css"/>

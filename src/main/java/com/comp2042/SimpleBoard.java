@@ -139,10 +139,27 @@ public class SimpleBoard implements Board {
         return boardMatrix;
     }
 
+    private int calculateGhostY() {
+        int[][] currentMatrix = MatrixOperations.copy(boardMatrix);
+        int ghostY = (int) brickOffset.getY();
+        while (true) {
+            boolean conflict = MatrixOperations.intersect(
+                    currentMatrix,
+                    brickRotator.getCurrentShape(),
+                    (int) brickOffset.getX(),
+                    ghostY + 1);
+            if (conflict) {
+                break;
+            }
+            ghostY++;
+        }
+        return ghostY;
+    }
+
     @Override
     public ViewData getViewData() {
         return new ViewData(brickRotator.getCurrentShape(), (int) brickOffset.getX(), (int) brickOffset.getY(),
-                brickGenerator.getNextBrick().getShapeMatrix().get(0));
+                calculateGhostY(), brickGenerator.getNextBrick().getShapeMatrix().get(0));
     }
 
     /**

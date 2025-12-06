@@ -54,6 +54,10 @@ public class GuiController implements Initializable {
 
     private Rectangle[][] rectangles;
 
+    private GridPane ghostPanel;
+
+    private Rectangle[][] ghostRectangles;
+
     private Timeline timeLine;
 
     private final BooleanProperty isPause = new SimpleBooleanProperty();
@@ -142,6 +146,48 @@ public class GuiController implements Initializable {
         brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap()
                 + brick.getyPosition() * BRICK_SIZE);
 
+        ghostPanel = new GridPane();
+        ghostPanel.setVgap(brickPanel.getVgap());
+        ghostPanel.setHgap(brickPanel.getHgap());
+        ghostRectangles = new Rectangle[brick.getBrickData().length][brick.getBrickData()[0].length];
+        for (int i = 0; i < brick.getBrickData().length; i++) {
+            for (int j = 0; j < brick.getBrickData()[i].length; j++) {
+                Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
+                rectangle.setFill(ColorHelper.getFillColor(brick.getBrickData()[i][j]));
+                rectangle.setOpacity(0.3); // Ghost effect
+                ghostRectangles[i][j] = rectangle;
+                ghostPanel.add(rectangle, j, i);
+            }
+        }
+        ((javafx.scene.layout.Pane) brickPanel.getParent()).getChildren().add(ghostPanel);
+        ghostPanel.toBack(); // Ensure it's behind the active brick
+        // Move gamePanel to back so ghost is in front of board but behind brick?
+        // Actually gamePanel should be at the very back.
+        // Let's just set ghostPanel z-order.
+        // If I use toBack(), it might go behind gamePanel if gamePanel is in the same
+        // parent.
+        // Let's assume the order in FXML is gamePanel, then brickPanel.
+        // If I add ghostPanel, it's last. toBack() makes it first.
+        // I want: gamePanel (bottom), ghostPanel, brickPanel (top).
+        // Safest is to not mess with z-order too much if I don't know the full
+        // structure.
+        // But ghost piece ON TOP of existing blocks is standard? No, usually behind
+        // active piece, but in front of board?
+        // Actually, ghost piece is usually an outline or semi-transparent block at the
+        // bottom.
+        // It should be visible over the black background.
+        // If I add it to parent, it will be on top of gamePanel (if gamePanel is
+        // earlier in children list).
+        // brickPanel is also on top of gamePanel.
+        // So just adding it is fine. I'll call ghostPanel.toBack() just in case, then
+        // bring brickPanel to front?
+        // Let's just add it and see. I'll remove toBack() for now to ensure visibility.
+
+        ghostPanel.setLayoutX(gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap()
+                + brick.getxPosition() * BRICK_SIZE);
+        ghostPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getGhostY() * brickPanel.getHgap()
+                + brick.getGhostY() * BRICK_SIZE);
+
         timeLine = new Timeline(new KeyFrame(
                 Duration.millis(400),
                 ae -> moveDown(new MoveEvent(EventType.DOWN, EventSource.THREAD))));
@@ -155,9 +201,17 @@ public class GuiController implements Initializable {
                     + brick.getxPosition() * BRICK_SIZE);
             brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap()
                     + brick.getyPosition() * BRICK_SIZE);
+
+            ghostPanel.setLayoutX(gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap()
+                    + brick.getxPosition() * BRICK_SIZE);
+            ghostPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getGhostY() * brickPanel.getHgap()
+                    + brick.getGhostY() * BRICK_SIZE);
+
             for (int i = 0; i < brick.getBrickData().length; i++) {
                 for (int j = 0; j < brick.getBrickData()[i].length; j++) {
                     setRectangleData(brick.getBrickData()[i][j], rectangles[i][j]);
+                    setRectangleData(brick.getBrickData()[i][j], ghostRectangles[i][j]);
+                    ghostRectangles[i][j].setOpacity(0.3);
                 }
             }
         }
@@ -200,7 +254,11 @@ public class GuiController implements Initializable {
         this.eventListener = eventListener;
     }
 
+    @FXML
+    private Label scoreLabel;
+
     public void bindScore(IntegerProperty integerProperty) {
+        scoreLabel.textProperty().bind(integerProperty.asString("Score: %d"));
     }
 
     public void gameOver() {
@@ -243,7 +301,7 @@ public class GuiController implements Initializable {
             Parent root = fxmlLoader.load();
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 300, 510);
+            Scene scene = new Scene(root, 300, 700);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

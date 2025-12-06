@@ -13,7 +13,7 @@ public class Main extends Application {
 
     private static final String APP_TITLE = "TetrisJFX";
     private static final int WINDOW_WIDTH = 300;
-    private static final int WINDOW_HEIGHT = 510;
+    private static final int WINDOW_HEIGHT = 700;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -26,6 +26,7 @@ public class Main extends Application {
         primaryStage.setTitle(APP_TITLE);
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
