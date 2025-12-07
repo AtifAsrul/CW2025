@@ -1,3 +1,4 @@
+
 package com.comp2042;
 
 import java.util.ArrayDeque;
@@ -6,11 +7,10 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class    MatrixOperations {
+public class MatrixOperations {
 
-
-    //We don't want to instantiate this utility class
-    private MatrixOperations(){
+    // We don't want to instantiate this utility class
+    private MatrixOperations() {
 
     }
 
@@ -89,10 +89,10 @@ public class    MatrixOperations {
             }
         }
         int scoreBonus = 50 * clearedRows.size() * clearedRows.size();
-        return new ClearRow(clearedRows.size(), tmp, scoreBonus);
+        return new ClearRow(clearedRows.size(), tmp, scoreBonus, clearedRows);
     }
 
-    public static List<int[][]> deepCopyList(List<int[][]> list){
+    public static List<int[][]> deepCopyList(List<int[][]> list) {
         return list.stream().map(MatrixOperations::copy).collect(Collectors.toList());
     }
 

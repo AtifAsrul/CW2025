@@ -12,25 +12,25 @@ public class ColorHelper {
                 returnPaint = Color.TRANSPARENT;
                 break;
             case 1:
-                returnPaint = Color.AQUA;
+                returnPaint = Color.web("#00FFFF"); // Neon Cyan
                 break;
             case 2:
-                returnPaint = Color.BLUEVIOLET;
+                returnPaint = Color.web("#D500F9"); // Neon Purple
                 break;
             case 3:
-                returnPaint = Color.DARKGREEN;
+                returnPaint = Color.web("#39FF14"); // Neon Green
                 break;
             case 4:
-                returnPaint = Color.YELLOW;
+                returnPaint = Color.web("#FFFF00"); // Neon Yellow
                 break;
             case 5:
-                returnPaint = Color.RED;
+                returnPaint = Color.web("#FF00FF"); // Neon Magenta
                 break;
             case 6:
-                returnPaint = Color.BEIGE;
+                returnPaint = Color.web("#FF073A"); // Neon Red
                 break;
             case 7:
-                returnPaint = Color.BURLYWOOD;
+                returnPaint = Color.web("#FF5F00"); // Neon Orange
                 break;
             default:
                 returnPaint = Color.WHITE;

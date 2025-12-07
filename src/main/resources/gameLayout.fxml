@@ -8,26 +8,53 @@
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <Pane fx:controller="com.comp2042.GuiController"
-      xmlns:fx="http://javafx.com/fxml">
-    <GridPane fx:id="brickPanel" vgap="1" hgap="1"/>
-    <BorderPane styleClass="gameBoard" fx:id="gameBoard">
+      xmlns:fx="http://javafx.com/fxml"
+      styleClass="game-root">
+    <BorderPane fx:id="gameBoard" styleClass="gameBoard" layoutX="200" layoutY="0">
         <center>
             <GridPane fx:id="gamePanel" hgap="1" vgap="1" layoutY="30" layoutX="40"/>
         </center>
     </BorderPane>
+    <GridPane fx:id="brickPanel" vgap="1" hgap="1"/>
 
-    <Group fx:id="groupNotification" layoutX="14" layoutY="203">
+    <VBox fx:id="holdBox" layoutX="30" layoutY="50" prefWidth="140" alignment="TOP_CENTER" spacing="5" styleClass="side-box">
+        <Label text="HOLD" styleClass="stat-title"/>
+        <GridPane fx:id="heldBrickPanel" vgap="1" hgap="1" alignment="CENTER"/>
+    </VBox>
+
+    <VBox layoutX="30" layoutY="300" prefWidth="140" alignment="TOP_CENTER" spacing="5" styleClass="side-box">
+        <Label text="LEVEL" styleClass="stat-title"/>
+        <Label fx:id="levelValue" text="1" styleClass="stat-value"/>
+    </VBox>
+
+    <VBox layoutX="440" layoutY="350" spacing="3" styleClass="tutorial-box">
+        <Text styleClass="helpInfo" text="Controls"/>
+        <Text styleClass="helpInfo" text="← / → : Move"/>
+        <Text styleClass="helpInfo" text="↑ : Rotate"/>
+        <Text styleClass="helpInfo" text="↓ : Soft Drop"/>
+        <Text styleClass="helpInfo" text="Spc : Hard Drop"/>
+        <Text styleClass="helpInfo" text="C : Hold"/>
+        <Text styleClass="helpInfo" text="P : Pause"/>
+    </VBox>
+
+    <VBox fx:id="nextBox" layoutX="430" layoutY="50" prefWidth="140" alignment="TOP_CENTER" spacing="5" styleClass="side-box">
+        <Label text="NEXT" styleClass="stat-title"/>
+        <GridPane fx:id="nextBrickPanel" vgap="1" hgap="1" alignment="CENTER"/>
+    </VBox>
+
+    <StackPane fx:id="notificationPanel" layoutX="0" layoutY="0" prefWidth="600" prefHeight="700" pickOnBounds="false">
         <VBox alignment="CENTER">
             <Label fx:id="pausedLabel" text="PAUSED" visible="false" styleClass="paused-label"/>
             <GameOverPanel fx:id="gameOverPanel"/>
         </VBox>
-    </Group>
+    </StackPane>
 
-    <HBox layoutX="10" layoutY="550" spacing="10" alignment="CENTER" prefWidth="280">
-        <Label fx:id="scoreLabel" text="Score: 0" styleClass="scoreClass"/>
-    </HBox>
+    <VBox fx:id="scoreBox" layoutX="0" layoutY="540" spacing="0" alignment="CENTER" prefWidth="600">
+        <Label text="SCORE" styleClass="stat-title"/>
+        <Label fx:id="scoreValue" text="0" styleClass="stat-value"/>
+    </VBox>
 
-    <HBox layoutX="10" layoutY="640" spacing="10" alignment="CENTER" prefWidth="280">
+    <HBox layoutX="0" layoutY="640" spacing="10" alignment="CENTER" prefWidth="600">
         <Button text="Menu" onAction="#backToMenu" styleClass="menu-button" prefWidth="80"/>
         <Button text="Restart" onAction="#newGame" styleClass="menu-button" prefWidth="80"/>
         <Button text="Pause" onAction="#pauseGame" styleClass="menu-button" prefWidth="80"/>
@@ -36,4 +63,9 @@
     <stylesheets>
         <URL value="@window_style.css"/>
     </stylesheets>
+    
+    <!-- Scanline Overlay -->
+    <StackPane layoutX="0" layoutY="0" prefWidth="600" prefHeight="700" mouseTransparent="true">
+        <Region style="-fx-background-image: url('scanlines.png'); -fx-background-repeat: repeat; -fx-opacity: 0.15;" />
+    </StackPane>
 </Pane>

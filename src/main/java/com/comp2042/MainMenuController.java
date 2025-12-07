@@ -18,6 +18,12 @@ public class MainMenuController {
     @FXML
     public void initialize() {
         System.out.println("Main Menu Loaded");
+        try {
+            javafx.scene.text.Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(),
+                    38);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -30,7 +36,7 @@ public class MainMenuController {
             GuiController c = fxmlLoader.getController();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 300, 700);
+            Scene scene = new Scene(root, 600, 700);
             stage.setScene(scene);
             stage.show();
 

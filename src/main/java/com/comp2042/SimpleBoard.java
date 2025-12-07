@@ -15,6 +15,8 @@ public class SimpleBoard implements Board {
     private int[][] boardMatrix;
     private Point brickOffset;
     private final Score score;
+    private Brick heldBrick;
+    private boolean hasHeldThisTurn;
 
     /**
      * Creates a new game board with the given width and height.
@@ -36,6 +38,9 @@ public class SimpleBoard implements Board {
     private boolean spawnBrick() {
         Brick newBrick = brickGenerator.getBrick();
         brickRotator.setBrick(newBrick);
+
+        brickRotator.setBrick(newBrick);
+        hasHeldThisTurn = false;
 
         // Use your new constant names
         int brickWidth = newBrick.getShapeMatrix().get(0).length;
@@ -135,6 +140,41 @@ public class SimpleBoard implements Board {
     }
 
     @Override
+    public boolean holdBrick() {
+        if (hasHeldThisTurn) {
+            return false;
+        }
+
+        Brick currentBrick = brickRotator.getBrick();
+
+        if (heldBrick == null) {
+            heldBrick = currentBrick;
+            // Spawn a new brick since we didn't have one held
+            spawnBrick();
+            // Important: holding counts as a turn action, so set flag AFTER spawn which
+            // resets it
+            hasHeldThisTurn = true;
+            return true;
+        } else {
+            Brick temp = heldBrick;
+            heldBrick = currentBrick;
+            brickRotator.setBrick(temp);
+
+            // Reset position for swapped brick
+            int brickWidth = temp.getShapeMatrix().get(0).length;
+            int centeredX = (width - brickWidth) / 2;
+            brickOffset = new Point(centeredX, Constants.START_Y);
+
+            hasHeldThisTurn = true;
+
+            // Check collision for the swapped brick immediately?
+            // Usually swapping doesn't kill you unless you spawn inside?
+            // But for now let's just assume valid swap.
+            return true;
+        }
+    }
+
+    @Override
     public int[][] getBoardMatrix() {
         return boardMatrix;
     }
@@ -159,7 +199,8 @@ public class SimpleBoard implements Board {
     @Override
     public ViewData getViewData() {
         return new ViewData(brickRotator.getCurrentShape(), (int) brickOffset.getX(), (int) brickOffset.getY(),
-                calculateGhostY(), brickGenerator.getNextBrick().getShapeMatrix().get(0));
+                calculateGhostY(), brickGenerator.getNextBrick().getShapeMatrix().get(0),
+                heldBrick != null ? heldBrick.getShapeMatrix().get(0) : null);
     }
 
     /**
@@ -200,7 +241,10 @@ public class SimpleBoard implements Board {
     @Override
     public void newGame() {
         boardMatrix = new int[height][width];
+        boardMatrix = new int[height][width];
         score.reset();
+        heldBrick = null;
+        hasHeldThisTurn = false;
         createNewBrick();
     }
 }

@@ -1,51 +1,55 @@
 .root {
-    -fx-background-image: none;
-    -fx-background-color: linear-gradient(to bottom, #1a0b2e, #2d1b4e);
-    /* Deep Midnight Purple to Dark Indigo */
+    -fx-background-color: #1a1a2e;
 }
 
 .nextBrick {
     -fx-border-width: 3px;
-    -fx-border-color: #ffd700;
-    /* Gold */
+    -fx-border-color: #FFD700;
+    /* Neon Gold */
     -fx-border-radius: 17px;
-    -fx-effect: dropshadow(gaussian, #ffd700, 10, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, #FFD700, 15, 0.7, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    /* Lighter glass */
 }
 
 .gameBoard {
-    -fx-border-color: linear-gradient(to bottom, #bf953f, #fcf6ba, #b38728);
-    /* Gold/Brass Gradient */
-    -fx-border-width: 5px;
+    -fx-border-color: #FF71CE;
+    /* Vaporwave Pink */
+    -fx-border-width: 3px;
+    -fx-border-style: solid;
     -fx-border-radius: 12px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, #FF71CE, 20, 0.6, 0, 0);
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+    /* Increased Opacity */
 }
 
 .nextBrickLabel {
     -fx-font-family: "Let's go Digital";
     -fx-padding: 20px 0 0 0;
     -fx-font-size: 20px;
-    -fx-text-fill: #00f3ff;
-    /* Neon Cyan */
-    -fx-effect: dropshadow(gaussian, #00f3ff, 5, 0.5, 0, 0);
+    -fx-text-fill: #01CDFE;
+    /* Vaporwave Cyan */
+    -fx-effect: dropshadow(gaussian, #01CDFE, 10, 0.6, 0, 0);
 }
 
 .ipad-dark-grey {
-    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-color: rgba(20, 20, 40, 0.6);
+    /* Dark Jazz Blue */
     -fx-background-radius: 10;
     -fx-padding: 8;
     -fx-font-family: "Let's go Digital";
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffd700;
-    /* Gold */
-    -fx-effect: dropshadow(gaussian, #ffd700, 5, 0.5, 0, 0);
+    -fx-text-fill: #FFD700;
+    /* Neon Gold */
+    -fx-effect: dropshadow(gaussian, #FFD700, 10, 0.6, 0, 0);
 }
 
 .rectangleStyle {
-    -fx-fill: linear-gradient(from 0% 0% to 100% 100%, #ff007f, #ffd700);
-    /* Pink to Gold gradient for blocks */
-    -fx-stroke: #2d1b4e;
+    -fx-stroke: rgba(255, 255, 255, 0.3);
     -fx-stroke-width: 1px;
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
 }
 
 .vbox {
@@ -53,99 +57,271 @@
 }
 
 .helpInfo {
-    -fx-fill: #ffd700;
+    -fx-fill: #FFD700;
+    /* Neon Gold */
+    -fx-effect: dropshadow(gaussian, #000000, 2, 1.0, 0, 0);
     -fx-alignment: center-left;
     -fx-text-alignment: left;
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-font-family: "Arial";
+    /* Changed to Arial */
+    -fx-font-weight: bold;
+}
+
+/* ... existing styles ... */
+
+.tutorial-box {
+    -fx-background-color: rgba(26, 11, 46, 0.7);
+    -fx-border-color: #00FFFF;
+    /* Neon Cyan */
+    /* Neon Cyan instead of Gold */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(gaussian, #00FFFF, 5, 0.3, 0, 0);
+    /* Reduced glow */
 }
 
 .bonusStyle {
     -fx-font-size: 40px;
     -fx-font-weight: bold;
-    -fx-fill: #00f3ff;
-    -fx-effect: dropshadow(gaussian, #00f3ff, 10, 0.5, 0, 0);
+    -fx-fill: #01CDFE;
+    -fx-effect: dropshadow(gaussian, #01CDFE, 15, 0.8, 0, 0);
 }
 
 .gameOverStyle {
     -fx-font-family: "Arial Black";
     -fx-font-size: 35px;
-    -fx-text-fill: #ff007f;
-    /* Neon Pink */
-    -fx-effect: dropshadow(gaussian, #ff007f, 20, 0.8, 0, 0);
-    -fx-background-color: rgba(26, 11, 46, 0.95);
-    /* Deep Purple opacity */
-    -fx-padding: 20px;
+    -fx-text-fill: #01CDFE;
+    /* Vaporwave Cyan */
+    -fx-effect: dropshadow(gaussian, #01CDFE, 20, 0.9, 0, 0);
+    -fx-background-color: rgba(26, 11, 46, 0.9);
+    /* Darker Background for contrast */
     -fx-background-radius: 20;
-    -fx-border-color: #ffd700;
-    /* Gold */
+    -fx-border-color: #FF71CE;
     -fx-border-width: 3px;
     -fx-border-radius: 20;
+    -fx-padding: 30px;
+}
+
+.tetrisTextStyle {
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 60px;
+    -fx-font-weight: bold;
+    -fx-fill: linear-gradient(to right, #ffd700, #ff007f);
+    /* Gold to Pink */
+    -fx-effect: dropshadow(gaussian, #ffd700, 20, 0.8, 0, 0);
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
 }
 
 .scoreClass {
     -fx-font-family: "Let's go Digital";
-    -fx-font-size: 35px;
-    -fx-text-fill: #00f3ff;
-    /* Neon Cyan */
-    -fx-effect: dropshadow(gaussian, #00f3ff, 10, 0.6, 0, 0);
+    -fx-font-size: 40px;
+    -fx-text-fill: #FF1493;
+    /* Hot Pink */
+    -fx-effect: dropshadow(gaussian, #FF1493, 15, 0.8, 0, 0);
+    -fx-background-color: rgba(20, 20, 40, 0.95);
+    /* Dark Jazz Blue - High Opacity */
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 10;
+    -fx-border-color: #FF1493;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+}
+
+.side-label {
+    -fx-font-family: "Let's go Digital";
+    /* Changed to Digital */
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EDEDED;
+    /* Clean Neon White */
+    -fx-effect: dropshadow(gaussian, #EDEDED, 3, 0.5, 0, 0);
+    -fx-background-color: transparent;
+    -fx-padding: 5px 10px;
 }
 
 /* New Styles */
 
 .main-menu-root {
-    -fx-background-color: linear-gradient(to bottom, #1a0b2e, #2d1b4e);
-    -fx-background-image: none;
+    -fx-background-image: url("new_main_menu_bg.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.game-root {
+    -fx-background-image: url("neon_jazz_gameplay_bg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
 .game-title {
     -fx-font-family: "Arial Black";
-    -fx-font-size: 60px;
-    -fx-text-fill: linear-gradient(to bottom, #ff007f, #bf953f);
-    /* Pink to Gold */
-    -fx-effect: dropshadow(gaussian, #ff007f, 20, 0.6, 0, 0);
+    -fx-font-size: 70px;
+    -fx-text-fill: linear-gradient(to right, #FF71CE, #01CDFE);
+    /* Pink to Cyan Gradient */
+    -fx-effect: dropshadow(gaussian, #440061, 25, 0.9, 0, 0);
+    /* Darker Deep Purple Glow for contrast */
+    -fx-stroke: white;
+    -fx-stroke-width: 4px;
+    /* Thicker stroke */
 }
 
 .menu-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #ffd700;
-    /* Gold */
-    -fx-font-family: "Arial";
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent Black */
+    -fx-text-fill: #00FFFF;
+    /* Neon Cyan */
+    -fx-font-family: "Let's go Digital", "Arial Black";
+    /* Digital font */
+    -fx-font-size: 24px;
+    /* Increased font size */
     -fx-font-weight: bold;
-    -fx-font-size: 18px;
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
-    -fx-border-color: #ffd700;
-    /* Gold */
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #00FFFF;
+    /* Cyan border */
     -fx-border-width: 2px;
     -fx-cursor: hand;
     -fx-pref-width: 220px;
-    -fx-pref-height: 55px;
-    -fx-effect: dropshadow(gaussian, #ffd700, 5, 0.3, 0, 0);
+    -fx-pref-height: 50px;
+    /* Increased height */
+}
+
+#startButton {
+    -fx-pref-width: 280px;
+    /* Wider start button */
+    -fx-text-fill: #00FFFF;
+    -fx-effect: dropshadow(gaussian, #00FFFF, 10, 0.4, 0, 0);
+    /* Subtle glow for primary */
 }
 
 .menu-button:hover {
-    -fx-background-color: rgba(255, 0, 127, 0.2);
-    /* Pink tint */
-    -fx-border-color: #ff007f;
-    /* Neon Pink */
-    -fx-text-fill: #ff007f;
-    -fx-effect: dropshadow(gaussian, #ff007f, 15, 0.6, 0, 0);
+    -fx-background-color: rgba(0, 255, 255, 0.2);
+    /* Cyan Glow */
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, #00FFFF, 20, 0.8, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-border-color: #FFFFFF;
+
 }
 
 .menu-button:pressed {
-    -fx-background-color: rgba(255, 0, 127, 0.4);
+    -fx-background-color: linear-gradient(to right, #B967FF, #FF71CE);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
 }
 
 .paused-label {
     -fx-font-family: "Arial Black";
-    -fx-font-size: 40px;
-    -fx-text-fill: #ffd700;
-    /* Gold */
-    -fx-effect: dropshadow(gaussian, #bf953f, 10, 0.5, 0, 0);
-    -fx-background-color: rgba(26, 11, 46, 0.9);
-    -fx-padding: 10px;
-    -fx-background-radius: 10;
-    -fx-border-color: #ffd700;
+    -fx-font-size: 50px;
+    -fx-text-fill: #FFFB96;
+    /* Pastel Yellow */
+    -fx-effect: dropshadow(gaussian, #FFFB96, 20, 0.8, 0, 0);
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+    -fx-padding: 20px;
+    -fx-background-radius: 15;
+    -fx-border-color: #FFFB96;
+    -fx-border-width: 3px;
+    -fx-border-radius: 15;
+}
+
+/* ... existing styles ... */
+
+.side-box {
+    -fx-background-color: rgba(20, 20, 40, 0.6);
+    /* Semi-transparent Dark Jazz Blue */
+    -fx-border-color: #FF00FF;
+    /* Neon Magenta */
     -fx-border-width: 2px;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, #FF00FF, 15, 0.4, 0, 0);
+    /* Magenta outer glow */
+    -fx-pref-width: 140px;
+    -fx-min-height: 120px;
+    /* Ensure uniform height for Held/Next */
+    -fx-alignment: top-center;
+}
+
+/* Updated Text Styles */
+
+.stat-title {
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #EDEDED;
+    /* Clean Neon White */
+    -fx-effect: dropshadow(gaussian, #EDEDED, 5, 0.3, 0, 0);
+    /* Soft outer glow */
+    -fx-padding: 0 0 5px 0;
+}
+
+.stat-value {
+    -fx-font-family: "Let's go Digital";
+    -fx-font-size: 36px;
+    -fx-text-fill: #EDEDED;
+    /* Clean Neon White */
+    -fx-effect: dropshadow(gaussian, #EDEDED, 10, 0.6, 0, 0);
+    /* Stronger glow */
+}
+
+/* ... existing styles ... */
+
+.gameOverStyle {
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 45px;
+    /* Increased size */
+    -fx-text-fill: #FF0033;
+    /* Neon Red */
+    -fx-effect: dropshadow(gaussian, #FF0033, 25, 0.8, 0, 0);
+    /* Strong red glow */
+    -fx-alignment: center;
+}
+
+.gameOverPanelContainer {
+    -fx-background-color: rgba(26, 11, 46, 0.95);
+    /* Darker Background for contrast */
+    -fx-background-radius: 20;
+    -fx-border-color: #FF71CE;
+    -fx-border-width: 3px;
+    -fx-border-radius: 20;
+    -fx-padding: 30px;
+    -fx-spacing: 15;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, #FF71CE, 20, 0.6, 0, 0);
+    -fx-translate-y: -50;
+    /* Moved up for optical centering */
+}
+
+.gameOverScoreLabel {
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: #EDEDED;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 1.0, 0, 0);
+}
+
+.gameOverScoreValue {
+    -fx-font-family: "Let's go Digital";
+    -fx-font-size: 40px;
+    -fx-text-fill: #FFD700;
+    /* Gold for score */
+    /* Reduced glow from 15 to 2 for legibility */
+    -fx-effect: dropshadow(gaussian, #FFD700, 2, 0.8, 0, 0);
+}
+}
+
+.gameOverPrompt {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(0, 255, 255, 0.8);
+    /* Cyan, slightly transparent */
+    -fx-effect: dropshadow(gaussian, #00FFFF, 5, 0.5, 0, 0);
+    -fx-padding: 10px 0 0 0;
 }

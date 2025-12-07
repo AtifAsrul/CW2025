@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class Main extends Application {
 
     private static final String APP_TITLE = "TetrisJFX";
-    private static final int WINDOW_WIDTH = 300;
+    private static final int WINDOW_WIDTH = 600;
     private static final int WINDOW_HEIGHT = 700;
 
     @Override
