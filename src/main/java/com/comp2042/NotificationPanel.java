@@ -14,8 +14,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/**
+ * Custom JavaFX component for displaying temporary notifications (e.g., score
+ * popups).
+ */
 public class NotificationPanel extends BorderPane {
 
+    /**
+     * Constructs a new NotificationPanel with the given text.
+     *
+     * @param text the text to display.
+     */
     public NotificationPanel(String text) {
         setMinHeight(200);
         setMinWidth(220);
@@ -28,6 +37,12 @@ public class NotificationPanel extends BorderPane {
 
     }
 
+    /**
+     * Shows the notification with an animation (fade and float up).
+     * Removes itself from the parent list upon completion.
+     *
+     * @param list the ObservableList of children from the parent container.
+     */
     public void showScore(ObservableList<Node> list) {
         FadeTransition ft = new FadeTransition(Duration.millis(2000), this);
         TranslateTransition tt = new TranslateTransition(Duration.millis(2500), this);
