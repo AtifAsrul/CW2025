@@ -486,7 +486,7 @@ public class GuiController implements Initializable {
             // Update Level Label
             if (levelValue != null) {
                 if (currentLevel >= 5) {
-                    levelValue.setText("ENDLESS");
+                    levelValue.setText("∞");
                 } else {
                     levelValue.setText(String.valueOf(currentLevel));
                 }
