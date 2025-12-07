@@ -1,5 +1,9 @@
 package com.comp2042;
 
+/**
+ * Configuration class for game levels.
+ * Defines score thresholds and drop speeds for each level.
+ */
 public class LevelConfig {
 
     // Score thresholds for each level (1-5)

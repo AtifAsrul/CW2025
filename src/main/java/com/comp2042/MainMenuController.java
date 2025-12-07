@@ -13,8 +13,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Main Menu screen.
+ * Handles the interaction for starting a new game or exiting the application.
+ */
 public class MainMenuController {
 
+    /**
+     * Initializes the controller.
+     * Loads necessary fonts and logs initialization.
+     */
     @FXML
     public void initialize() {
         System.out.println("Main Menu Loaded");
@@ -26,6 +34,12 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Event handler for the "Start Game" button.
+     * Loads the game layout and switches the scene to the game view.
+     *
+     * @param event the action event triggering this handler.
+     */
     @FXML
     public void onStartGame(ActionEvent event) {
         try {
@@ -46,6 +60,12 @@ public class MainMenuController {
         }
     }
 
+    /**
+     * Event handler for the "Exit" button.
+     * Terminates the application.
+     *
+     * @param event the action event triggering this handler.
+     */
     @FXML
     public void onExit(ActionEvent event) {
         Platform.exit();

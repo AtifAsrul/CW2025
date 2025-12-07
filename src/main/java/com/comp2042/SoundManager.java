@@ -4,6 +4,9 @@ import javax.sound.midi.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Manages sound effects and background music for the game using MIDI.
+ */
 public class SoundManager {
 
     private Synthesizer synthesizer;
@@ -36,10 +39,16 @@ public class SoundManager {
             66 // Gb4
     };
 
+    /**
+     * Constructs a new SoundManager and initializes the MIDI synthesizer.
+     */
     public SoundManager() {
         setupMidi();
     }
 
+    /**
+     * Sets up the MIDI synthesizer, loads sound fonts, and configures channels.
+     */
     private void setupMidi() {
         try {
             synthesizer = MidiSystem.getSynthesizer();
@@ -87,12 +96,24 @@ public class SoundManager {
         }
     }
 
+    /**
+     * Sets the instrument for a specific MIDI channel.
+     *
+     * @param channel the channel index.
+     * @param program the instrument program number.
+     */
     private void setInstrument(int channel, int program) {
         if (channels != null && channel < channels.length) {
             channels[channel].programChange(program);
         }
     }
 
+    /**
+     * Plays a hard drop sound effect based on the column index.
+     * Uses a pentatonic scale for variation.
+     *
+     * @param column the column index where the drop occurred.
+     */
     public void playHardDrop(int column) {
         if (channels == null)
             return;
@@ -112,6 +133,12 @@ public class SoundManager {
         }).start();
     }
 
+    /**
+     * Plays a sound effect for clearing lines.
+     * The chord played depends on the number of lines cleared.
+     *
+     * @param lines the number of lines cleared.
+     */
     public void playLineClear(int lines) {
         if (channels == null || lines <= 0)
             return;
@@ -162,6 +189,10 @@ public class SoundManager {
         }).start();
     }
 
+    /**
+     * Plays the game over sound effect.
+     * Stops the background music and plays a dissonant brass cluster.
+     */
     public void playGameOver() {
         stopBackgroundMusic(); // Stop BGM
         if (channels == null)
@@ -193,6 +224,9 @@ public class SoundManager {
         }).start();
     }
 
+    /**
+     * Plays a sound effect when a brick is held.
+     */
     public void playHold() {
         if (channels == null)
             return;
@@ -210,6 +244,9 @@ public class SoundManager {
         }
     }
 
+    /**
+     * Stops all currently playing MIDI notes.
+     */
     public void stopAllSounds() {
         if (channels == null)
             return;
@@ -220,6 +257,10 @@ public class SoundManager {
 
     private javafx.scene.media.MediaPlayer mediaPlayer;
 
+    /**
+     * Plays the background music from the resources.
+     * loops indefinitely.
+     */
     public void playBackgroundMusic() {
         try {
             String musicFile = "SwingBGM.mp3";
@@ -238,12 +279,18 @@ public class SoundManager {
         }
     }
 
+    /**
+     * Stops the background music.
+     */
     public void stopBackgroundMusic() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
     }
 
+    /**
+     * Cleans up resources, closing the synthesizer and stopping music.
+     */
     public void cleanup() {
         if (synthesizer != null && synthesizer.isOpen()) {
             synthesizer.close();

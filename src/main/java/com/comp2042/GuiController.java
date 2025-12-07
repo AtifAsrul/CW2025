@@ -37,6 +37,11 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+/**
+ * Controller class for the main Game GUI.
+ * Manages the UI elements, updates the game view, and handles user input via
+ * event listeners.
+ */
 public class GuiController implements Initializable {
 
     private static final int BRICK_SIZE = 20;
@@ -90,6 +95,15 @@ public class GuiController implements Initializable {
 
     private int currentLevel = 1;
 
+    /**
+     * Initializes the controller class.
+     * Sets up fonts, panels, visuals, and key event listeners.
+     *
+     * @param location  The location used to resolve relative paths for the root
+     *                  object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
@@ -151,6 +165,12 @@ public class GuiController implements Initializable {
         reflection.setTopOffset(-12);
     }
 
+    /**
+     * Initializes the game board view with the given matrix and current brick.
+     *
+     * @param boardMatrix the current state of the board.
+     * @param brick       the current moving brick view data.
+     */
     public void initGameView(int[][] boardMatrix, ViewData brick) {
         displayMatrix = new Rectangle[boardMatrix.length][boardMatrix[0].length];
         for (int i = 2; i < boardMatrix.length; i++) {
@@ -231,6 +251,11 @@ public class GuiController implements Initializable {
         refreshHeldBrick(brick.getHeldBrickData());
     }
 
+    /**
+     * Refreshes the display of the held brick.
+     *
+     * @param heldBrickData the matrix data of the held brick.
+     */
     private void refreshHeldBrick(int[][] heldBrickData) {
         if (heldBrickData == null) {
             for (int i = 0; i < 4; i++) {
@@ -258,6 +283,11 @@ public class GuiController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes the display of the next upcoming brick.
+     *
+     * @param nextBrickData the matrix data of the next brick.
+     */
     private void refreshNextBrick(int[][] nextBrickData) {
         // Clear previous
         for (int i = 0; i < 4; i++) {
@@ -276,6 +306,11 @@ public class GuiController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes the view of the current falling brick and its ghost.
+     *
+     * @param brick the view data of the current brick.
+     */
     private void refreshBrick(ViewData brick) {
         if (isPause.getValue() == Boolean.FALSE) {
             brickPanel.setLayoutX(
@@ -304,6 +339,11 @@ public class GuiController implements Initializable {
         }
     }
 
+    /**
+     * Refreshes the entire game board background grid.
+     *
+     * @param board the board matrix data.
+     */
     public void refreshGameBackground(int[][] board) {
         for (int i = 2; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -312,6 +352,12 @@ public class GuiController implements Initializable {
         }
     }
 
+    /**
+     * Helper method to set the properties of a rectangle in the grid.
+     *
+     * @param color     the color index for the rectangle.
+     * @param rectangle the rectangle object to update.
+     */
     private void setRectangleData(int color, Rectangle rectangle) {
         rectangle.setFill(ColorHelper.getFillColor(color));
         rectangle.setArcHeight(5); // Reduced from 9 for better "brick" look
@@ -328,6 +374,12 @@ public class GuiController implements Initializable {
         rectangle.setStrokeType(javafx.scene.shape.StrokeType.INSIDE); // Ensure border doesn't overflow
     }
 
+    /**
+     * Moves the brick down and handles clearing rows and particle effects if the
+     * move results in a lock.
+     *
+     * @param event the move event.
+     */
     private void moveDown(MoveEvent event) {
         if (isPause.getValue() == Boolean.FALSE) {
             DownData downData;
@@ -365,6 +417,11 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
     }
 
+    /**
+     * Displays a "TETRIS" text animation for a Tetris line clear (4 lines).
+     *
+     * @param yPos the vertical position to display the text.
+     */
     private void showTetrisText(double yPos) {
         javafx.scene.text.Text tetrisText = new javafx.scene.text.Text("TETRIS");
         tetrisText.getStyleClass().add("tetrisTextStyle");
@@ -401,6 +458,11 @@ public class GuiController implements Initializable {
         pt.play();
     }
 
+    /**
+     * Spawns particle effects for cleared rows.
+     *
+     * @param rows list of row indices that were cleared.
+     */
     private void spawnParticles(java.util.List<Integer> rows) {
         // Root pane to add particles to
         javafx.scene.layout.Pane root = (javafx.scene.layout.Pane) gamePanel.getScene().getRoot();
@@ -449,6 +511,11 @@ public class GuiController implements Initializable {
         }
     }
 
+    /**
+     * Sets the input event listener for this controller.
+     *
+     * @param eventListener the event listener to handle game input events.
+     */
     public void setEventListener(InputEventListener eventListener) {
         this.eventListener = eventListener;
     }
@@ -456,6 +523,11 @@ public class GuiController implements Initializable {
     @FXML
     private Label scoreValue;
 
+    /**
+     * Binds the score property to the score label.
+     *
+     * @param integerProperty the score property from the game logic.
+     */
     public void bindScore(IntegerProperty integerProperty) {
         scoreValue.textProperty().bind(integerProperty.asString("%d"));
         integerProperty.addListener(new ChangeListener<Number>() {
@@ -466,6 +538,11 @@ public class GuiController implements Initializable {
         });
     }
 
+    /**
+     * Updates the current level based on the score.
+     *
+     * @param score the current score.
+     */
     private void updateLevel(int score) {
         int newLevel = LevelConfig.getLevelForScore(score);
         if (newLevel != currentLevel) {
@@ -503,6 +580,11 @@ public class GuiController implements Initializable {
 
     private Rectangle dimOverlay;
 
+    /**
+     * Toggles a semi-transparent dimmer overlay on the game.
+     *
+     * @param show true to show the dimmer, false to remove it.
+     */
     private void toggleDimmer(boolean show) {
         if (show) {
             if (dimOverlay == null) {
@@ -522,6 +604,9 @@ public class GuiController implements Initializable {
         }
     }
 
+    /**
+     * Displays the Game Over screen and handles the associated animations.
+     */
     public void gameOver() {
         timeLine.stop();
         gameOverPanel.setVisible(true);
@@ -565,6 +650,11 @@ public class GuiController implements Initializable {
         toggleDimmer(true);
     }
 
+    /**
+     * Starts a new game, resetting UI elements and game state.
+     *
+     * @param actionEvent the event triggering the new game (can be null).
+     */
     public void newGame(ActionEvent actionEvent) {
         timeLine.stop();
         gameOverPanel.setVisible(false);
@@ -595,6 +685,11 @@ public class GuiController implements Initializable {
         isGameOver.setValue(Boolean.FALSE);
     }
 
+    /**
+     * Toggles the pause state of the game.
+     *
+     * @param actionEvent the event triggering the pause (can be null).
+     */
     public void pauseGame(ActionEvent actionEvent) {
         if (isGameOver.getValue() == Boolean.FALSE) {
             if (isPause.getValue() == Boolean.FALSE) {
@@ -612,6 +707,11 @@ public class GuiController implements Initializable {
         gamePanel.requestFocus();
     }
 
+    /**
+     * Returns to the main menu.
+     *
+     * @param actionEvent the event triggering the return.
+     */
     public void backToMenu(ActionEvent actionEvent) {
         timeLine.stop();
         if (eventListener != null) {

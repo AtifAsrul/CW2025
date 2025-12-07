@@ -3,8 +3,18 @@ package com.comp2042;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+/**
+ * Helper class for mapping integer IDs to JavaFX Paint objects.
+ * Used for defining the colors of the bricks.
+ */
 public class ColorHelper {
 
+    /**
+     * Retrieves the paint color corresponding to a given index.
+     *
+     * @param i the color index (0 for transparent, 1-7 for specific colors).
+     * @return the corresponding Paint object.
+     */
     public static Paint getFillColor(int i) {
         Paint returnPaint;
         switch (i) {

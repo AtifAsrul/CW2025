@@ -1,11 +1,22 @@
 package com.comp2042;
 
+/**
+ * Controller class that manages the core game logic and interaction between the
+ * model (Board) and the view (GuiController).
+ * implements {@link InputEventListener} to handle user input events.
+ */
 public class GameController implements InputEventListener {
 
     private Board board = new SimpleBoard();
     private final GuiController viewGuiController;
     private final SoundManager soundManager;
 
+    /**
+     * Constructs a new GameController.
+     * Initializes the sound manager, creates a new brick, and sets up the view.
+     *
+     * @param c the GuiController instance to control the view.
+     */
     public GameController(GuiController c) {
         viewGuiController = c;
         soundManager = new SoundManager();
@@ -16,6 +27,16 @@ public class GameController implements InputEventListener {
         soundManager.playBackgroundMusic(); // Start BGM
     }
 
+    /**
+     * Handles the event when the down key is pressed or time tick occurs.
+     * Moves the brick down. If the brick cannot move down, it locks it to the
+     * board, checks for cleared rows,
+     * updates the score, and spawns a new brick.
+     *
+     * @param event the move event details.
+     * @return the data representing the state after the down move, including
+     *         cleared rows and view data.
+     */
     @Override
     public DownData onDownEvent(MoveEvent event) {
         boolean canMove = board.moveBrickDown();
@@ -38,24 +59,52 @@ public class GameController implements InputEventListener {
         return new DownData(clearRow, board.getViewData());
     }
 
+    /**
+     * Handles the event when the left key is pressed.
+     * Moves the brick to the left.
+     *
+     * @param event the move event details.
+     * @return the updated view data after the move.
+     */
     @Override
     public ViewData onLeftEvent(MoveEvent event) {
         board.moveBrickLeft();
         return board.getViewData();
     }
 
+    /**
+     * Handles the event when the right key is pressed.
+     * Moves the brick to the right.
+     *
+     * @param event the move event details.
+     * @return the updated view data after the move.
+     */
     @Override
     public ViewData onRightEvent(MoveEvent event) {
         board.moveBrickRight();
         return board.getViewData();
     }
 
+    /**
+     * Handles the event when the rotate key is pressed.
+     * Rotates the brick.
+     *
+     * @param event the move event details.
+     * @return the updated view data after the rotation.
+     */
     @Override
     public ViewData onRotateEvent(MoveEvent event) {
         board.rotateLeftBrick();
         return board.getViewData();
     }
 
+    /**
+     * Handles the event when the hold key is pressed.
+     * Swaps the current brick with the held brick.
+     *
+     * @param event the move event details.
+     * @return the updated view data after the hold action.
+     */
     @Override
     public ViewData onHoldEvent(MoveEvent event) {
         if (board.holdBrick()) {
@@ -64,6 +113,15 @@ public class GameController implements InputEventListener {
         return board.getViewData();
     }
 
+    /**
+     * Handles the event when the drop (space) key is pressed.
+     * Instantly drops the brick to the bottom, locks it, processes row clears, and
+     * spawns a new brick.
+     *
+     * @param event the move event details.
+     * @return the data representing the state after the drop, including cleared
+     *         rows and view data.
+     */
     @Override
     public DownData onDropEvent(MoveEvent event) {
         boolean canMove = true;
@@ -90,6 +148,9 @@ public class GameController implements InputEventListener {
         return new DownData(clearRow, board.getViewData());
     }
 
+    /**
+     * Starts a new game by resetting the board and playing the background music.
+     */
     @Override
     public void createNewGame() {
         soundManager.stopAllSounds();
@@ -99,6 +160,9 @@ public class GameController implements InputEventListener {
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
     }
 
+    /**
+     * Stops the current game and cleans up resources like sound.
+     */
     @Override
     public void stopGame() {
         soundManager.stopAllSounds();

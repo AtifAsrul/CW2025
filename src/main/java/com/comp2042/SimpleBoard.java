@@ -6,6 +6,10 @@ import com.comp2042.logic.bricks.RandomBrickGenerator;
 
 import java.awt.*;
 
+/**
+ * Concrete implementation of the {@link Board} interface.
+ * Manages the game state, including the grid, active brick, and score.
+ */
 public class SimpleBoard implements Board {
 
     private final int width = Constants.BOARD_WIDTH;
@@ -100,7 +104,7 @@ public class SimpleBoard implements Board {
     }
 
     /**
-     * Attempts to move the falling brick one cell to the left.
+     * Attempts to move the falling brick one cell to the right.
      *
      * @return true if movement succeeds; false if collision prevents movement
      */
@@ -110,9 +114,9 @@ public class SimpleBoard implements Board {
     }
 
     /**
-     * Attempts to move the falling brick one cell to the right.
+     * Attempts to rotate the falling brick to the left.
      *
-     * @return true if movement succeeds; false if collision prevents movement
+     * @return true if rotation succeeds; false if collision prevents rotation
      */
     @Override
     public boolean rotateLeftBrick() {
@@ -139,6 +143,13 @@ public class SimpleBoard implements Board {
         return spawnBrick();
     }
 
+    /**
+     * Holds the current brick. If a brick is already held, swaps it with the
+     * current one.
+     *
+     * @return true if the brick was successfully held/swapped, false if a hold
+     *         action occurred this turn.
+     */
     @Override
     public boolean holdBrick() {
         if (hasHeldThisTurn) {
@@ -174,11 +185,21 @@ public class SimpleBoard implements Board {
         }
     }
 
+    /**
+     * Gets the current board matrix.
+     *
+     * @return the 2D integer array representing the board.
+     */
     @Override
     public int[][] getBoardMatrix() {
         return boardMatrix;
     }
 
+    /**
+     * Calculates the Y position of the ghost brick (drop position).
+     *
+     * @return the Y coordinate for the ghost brick.
+     */
     private int calculateGhostY() {
         int[][] currentMatrix = MatrixOperations.copy(boardMatrix);
         int ghostY = (int) brickOffset.getY();
@@ -196,6 +217,12 @@ public class SimpleBoard implements Board {
         return ghostY;
     }
 
+    /**
+     * Generates the view data for the current game state, including brick position,
+     * ghost position, and next/held bricks.
+     *
+     * @return the ViewData object.
+     */
     @Override
     public ViewData getViewData() {
         return new ViewData(brickRotator.getCurrentShape(), (int) brickOffset.getX(), (int) brickOffset.getY(),
@@ -228,6 +255,11 @@ public class SimpleBoard implements Board {
 
     }
 
+    /**
+     * Gets the score object tracking the game score.
+     *
+     * @return the Score object.
+     */
     @Override
     public Score getScore() {
         return score;
