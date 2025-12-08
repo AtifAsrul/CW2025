@@ -1,6 +1,6 @@
 # Tetris Refactoring & Extension (COMP2042)
 
-![Java](https://img.shields.io/badge/Java-17%2B-orange) ![JavaFX](https://img.shields.io/badge/Framework-JavaFX-blue) ![JUnit](https://img.shields.io/badge/Testing-JUnit%205-green) ![Status](https://img.shields.io/badge/Coursework-Completed-brightgreen)
+![Java](https://img.shields.io/badge/Java-23%2B-orange) ![JavaFX](https://img.shields.io/badge/Framework-JavaFX-blue) ![JUnit](https://img.shields.io/badge/Testing-JUnit%205-green) ![Status](https://img.shields.io/badge/Coursework-Completed-brightgreen)
 
 **Student Name:** Muhammad Atif Hakimi  
 **Repository:** [GitHub Link](https://github.com/AtifAsrul/CW2025.git)
